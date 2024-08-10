@@ -10,16 +10,16 @@ class Controller:
         self.storage = storage
         self.__init_commands()
 
+    def consume(self, user_inp):
+        cmd_line = user_inp.strip().lower()
+        command = self.find_command(cmd_line)
+        return command.apply(cmd_line)
 
-    def consume(self, cmd):
-        return self.parse(cmd)
-
-    def parse(self, user_inp: str):
-        user_inp = user_inp.strip().lower()
+    def find_command(self, user_inp: str):
         for cmd_name in self.commands:
             if user_inp.find(cmd_name) != -1:
-                return self.commands[cmd_name].apply(user_inp)
-        return self.commands.get(Cmd_not_found.CMD_NAME).apply(user_inp)
+                return self.commands[cmd_name]
+        return self.commands.get(Cmd_not_found.CMD_NAME)
 
     def __init_commands(self):
         self.commands = dict()
