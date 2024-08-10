@@ -21,6 +21,7 @@ class Controller:
                 return self.commands[cmd_name]
         return self.commands.get(Cmd_not_found.CMD_NAME)
 
+    # todo move up to services.cmd_factory to make controlled unaware about storage
     def __init_commands(self):
         self.commands = dict()
         self.commands[Cmd_not_found.CMD_NAME] = Cmd_not_found()
